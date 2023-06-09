@@ -40,6 +40,18 @@ author:
   name: Changhe Xie
   email: "xietheus@gmail.com"
 
+defaults:
+  - scope:
+      path: "assets/ChangheXieCVEn.pdf"
+      name: "Changhe Xie CV (English)"
+    values:
+      pdf: true
+  - scope:
+      path: "assets/ChangheXieCVCh.pdf"
+      name: "Changhe Xie CV (Mandarian)"
+    values:
+      pdf: true
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
