@@ -1,0 +1,7 @@
+By Changhe Xie
+
+1. Adding new projects
+    You can add new projects by add .md file in the projects dict.
+    The html file will be auto-generated and stored in the _site/projects
+    dict. Then you need to add list and link in the projects.markdown file
+    to show the new projects.
