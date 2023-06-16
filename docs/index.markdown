@@ -3,7 +3,7 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 layout: home
-title: ""
+title: "Home"
 list_title: "<h2>Posts</h2>"
 ---
 <!-- TODO: Let the profile be in the position of the left of the Biography -->

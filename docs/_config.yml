@@ -40,6 +40,12 @@ author:
   name: Changhe Xie
   email: "xietheus@gmail.com"
 
+# For the header list
+header_pages:
+  - index.markdown
+  - projects.markdown
+  - CV.markdown
+
 defaults:
   - scope:
       path: "assets/ChangheXieCVEn.pdf"
