@@ -16,6 +16,8 @@ These projects are sorted in chronological order.
                 <li>
                     <span class="post-meta">Oct 10, 2022</span>
                     <h3><a class="post-link" href="/projects/a_grade.html">A-Grade Study Partner</a></h3>
+                    <span class="post-meta">Jan 12, 2021</span>
+                    <h3><a class="post-link" href="/projects/url_class.html">URL Classifier</a></h3>
                 </li>
             </ul>
         </div>
