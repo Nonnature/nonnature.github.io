@@ -2,7 +2,7 @@
 layout: post
 title: "URL Classifier"
 ---
-### Contents
+### ***Contents***
 - [Summary](#1)
 - [GitHub Repository](#2)
 - [Project Details](#3)
@@ -25,24 +25,24 @@ title: "URL Classifier"
 
 ------
 
-<h3 id="1">Summary</h3>
+<h3 id="1"> <strong><i>Summary</i></strong> </h3>
 This project is about constructing a URL classification model using the TensorFlow library. The model is trained to classify URLs into three categories: 'left', 'central', and 'right'. The project is organized as a Jupyter notebook (Classifier_Demo.ipynb) and a utility script (utils.py).
 
 ------
 
-<h3 id="2">GitHub Repository</h3>
+<h3 id="2"> <strong><i>GitHub Repository</i></strong> </h3>
 <!-- TODO: Add your link -->
 Check the source codes out on my [GitHub repo](https://github.com/Nonnature/URL_Classifier).
 
 ------
 
-<h3 id="3">Project Details</h3>
+<h3 id="3"> <strong><i>Project Details</i></strong> </h3>
 
-- <h4 id="3.1">Initialization</h4>
+- <h4 id="3.1"> <strong><i>Initialization</i></strong> </h4>
 
 Firstly, the project starts with setting up the environment and importing necessary packages, including TensorFlow, pandas, numpy, and others.
     
-1. <h6 id="3.1.1">Environment Setup</h6>
+<h6 id="3.1.1"> <strong><i>Environment Setup</i></strong> </h6>
 
 The environment setup includes mounting Google Drive and specifying the directory for data and model resources.
 
@@ -63,7 +63,9 @@ import sys
 sys.path.append(module_dir)
 ```
 
-2. <h6 id="3.1.2">Install prerequisite libraries</h6>
+<h6 id="3.1.2"> <strong><i>Install prerequisite libraries</i></strong> </h6>
+
+The code imports the necessary libraries and checks if a GPU is available for TensorFlow to use.
 
 ```python
 """ Install prerequisite libraries """
@@ -78,7 +80,27 @@ sys.path.append(module_dir)
 #!pip3 install tensorflow==2.0.0           # if you use TensorFlow w/out GPU
 !pip3 install tensorflow-gpu==2.0.0       # if you use TensorFlow w/ GPU
 ```
-3. <h6 id="3.1.3">Import Packages to Use</h6>
+<h6 id="3.1.3"> <strong><i>Import Packages to Use</i></strong> </h6>
+
+- `pandas`: A powerful data manipulation library in Python. It is used for loading and manipulating data in this code.
+
+- `pickle`: Used for serializing and de-serializing Python object structures.
+
+- `wordninja`: A package that uses a language model to split concatenated words, which is useful for splitting URLs into individual words.
+
+- `tensorflow`: A machine learning framework used to build the neural network model for classification. It's also used to create dataset pipelines and check for available GPUs.
+
+- `tensorflow.keras.preprocessing.text.Tokenizer`: A class for vectorizing texts, or/and turning texts into sequences.
+
+- `tensorflow.keras.preprocessing.sequence.pad_sequences`: A function used to pad sequences to the same length.
+
+- `matplotlib.pyplot`: A plotting library used for data visualization. Here, it's used to visualize model training results.
+
+- `lime.lime_text.LimeTextExplainer`: A module from LIME (Local Interpretable Model-agnostic Explanations) package. LIME is a way to explain predictions of any classifier in an interpretable and faithful manner.
+
+- `sklearn.preprocessing.OneHotEncoder`: A class from scikit-learn library to perform one-hot encoding on categorical variables, used for transforming the class labels.
+
+- `sklearn.metrics.classification_report`: A function from scikit-learn library that builds a text report showing the main classification metrics.
 
 ```python
 """ Import Packages to Use """
@@ -117,7 +139,9 @@ from utils import preprocess_data
 from utils import predict_url
 ```
 
-4. <h6 id="3.1.4">Global Variables</h6>
+<h6 id="3.1.4"> <strong><i>Global Variables</i></strong> </h6>
+
+Sets various global variables including those related to data size, text processing, and model parameters like vocabulary size, embedding dimension, learning rate, etc.
 
 ```python
 """ Global Variables """
@@ -152,9 +176,11 @@ LR = 1e-3
 N_EPOCH = 100
 ```
 
-- <h4 id="3.2">Data Processing</h4>
+- <h4 id="3.2"> <strong><i>Data Processing</i></strong> </h4>
 
-1. <h6 id="3.2.1">Load Data</h6>
+The data is loaded from a CSV file containing URLs and their corresponding categories. For this demo, the categories have been limited to 'left', 'central', and 'right'.
+
+<h6 id="3.2.1"> <strong><i>Load Data</i></strong> </h6>
 
 ```python
 """ Load Data """
@@ -171,7 +197,9 @@ print("Example Data:")
 print(data_df.head())
 ```
 
-2. <h6 id="3.2.2">Split Data</h6>
+<h6 id="3.2.2"> <strong><i>Split Data</i></strong> </h6>
+
+The data is then shuffled and split into training and test sets. The division ratio is 80% for training and 20% for testing, as set by the variable TRAIN_SIZE.
 
 ```python
 """ Split Data into Training & Test Sets """
@@ -194,7 +222,13 @@ print("Training set label distriubtion: ", np.unique(y_train, return_counts=True
 print("Test set label distriubtion: ", np.unique(y_test, return_counts=True))
 ```
 
-3. <h6 id="3.2.3">Preprocess Data</h6>
+<h6 id="3.2.3"> <strong><i>Preprocess Data</i></strong> </h6>
+
+Before training, the URLs (which are text) need to be converted into a format that can be understood by the model. This is done by word tokenization, using the preprocess_data function from the utils.py script. Word tokenization is the process of splitting a large paragraph into words. For example, "infococoonbreaker" -> ["info", "cocoon", "breaker"].
+
+Next, these tokens are converted into integer tokens (a process called "integer encoding") using the Tokenizer class from TensorFlow's keras.preprocessing.text module. The size of the tokenizer's vocabulary is 10,000 words, and sequences longer than 20 tokens are truncated.
+
+The labels (categories) are also converted from string to one-hot encoded format. One-hot encoding is a process by which categorical variables are converted into a form that could be provided to machine learning algorithms to improve prediction. For example, the category 'central' would be converted to [1, 0, 0], 'left' to [0, 1, 0] and 'right' to [0, 0, 1].
 
 ```python
 """ Preprocess Data """
@@ -234,7 +268,9 @@ print("Label: ", y_test[0])
 print("================================")
 ```
 
-4. <h6 id="3.2.4">TensorFlow Dataset Pipeline</h6>
+<h6 id="3.2.4"> <strong><i>TensorFlow Dataset Pipeline</i></strong> </h6>
+
+The preprocessed data is then fed into a TensorFlow dataset pipeline for training the model in batches. The size of each batch is 40,000.
 
 ```python
 """ TensorFlow Dataset Pipeline """
@@ -251,9 +287,11 @@ test_ds = tf.data.Dataset.from_tensor_slices((X_test, y_test))
 test_ds = test_ds.batch(batch_size=BATCH_SIZE)
 ```
 
-- <h4 id="3.3">Modeling</h4>
+- <h4 id="3.3"> <strong><i>Modeling</i></strong> </h4>
 
-1. <h6 id="3.3.1">Model Construction</h6>
+The model is a sequential model built using Keras, a high-level API to build and train models in TensorFlow. It consists of an embedding layer, a GlobalAveragePooling1D layer, a dense layer with 'relu' activation function, and a final dense layer with 'softmax' activation function.
+
+<h6 id="3.3.1"> <strong><i>Model Construction</i></strong> </h6>
 
 ```python
 # Construct a neural network
@@ -273,7 +311,9 @@ model.compile(loss='binary_crossentropy',
 print(model.summary())
 ```
 
-2. <h6 id="3.3.2">Model Training</h6>
+<h6 id="3.3.2"> <strong><i>Model Training</i></strong> </h6>
+
+The model is then trained using the Adam optimizer with a learning rate of 1e-3, binary cross-entropy as the loss function, and accuracy as the metric to measure model performance.
 
 ```python
 """ Train Model """
@@ -282,9 +322,13 @@ history = model.fit(train_ds, epochs=N_EPOCH,
                     validation_data=test_ds, verbose=1)
 ```
 
-- <h4 id="3.4">Result</h4>
+- <h4 id="3.4"> <strong><i>Result</i></strong> </h4>
 
-1. <h6 id="3.4.1">Loss Rate and Accuracy</h6>
+The model is trained for 100 epochs. At each epoch, the model's performance (loss and accuracy) on the training data and the test data is recorded and later visualized using Matplotlib.
+
+After training, the model's performance is evaluated by precision and recall, using the Scikit-learn library's classification_report function.
+
+<h6 id="3.4.1"> <strong><i>Loss Rate and Accuracy</i></strong> </h6>
 
 ```python
 """ Visualize Training Results """
@@ -328,7 +372,7 @@ plt.show()
 
 <div align=center><img src="{{ site.url }}/assets/url_lossacc.png" height="60%" width="60%" style="margin: 5%" style="margin: 5%"></div>
 
-2. <h6 id="3.4.2">Precision and Recall</h6>
+<h6 id="3.4.2"> <strong><i>Precision and Recall</i></strong> </h6>
 
 ```python
 """ Precision & Recall """
