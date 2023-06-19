@@ -38,11 +38,11 @@ Check the source codes out on my [GitHub repo](https://github.com/Nonnature/URL_
 
 <h3 id="3"> <strong><i>Project Details</i></strong> </h3>
 
-- <h4 id="3.1"> <strong><i>Initialization</i></strong> </h4>
+<h4 id="3.1"> <strong><i>Initialization</i></strong> </h4>
 
 Firstly, the project starts with setting up the environment and importing necessary packages, including TensorFlow, pandas, numpy, and others.
     
-<h6 id="3.1.1"> <strong><i>Environment Setup</i></strong> </h6>
+- <h6 id="3.1.1"> <strong><i>Environment Setup</i></strong> </h6>
 
 The environment setup includes mounting Google Drive and specifying the directory for data and model resources.
 
@@ -63,7 +63,7 @@ import sys
 sys.path.append(module_dir)
 ```
 
-<h6 id="3.1.2"> <strong><i>Install prerequisite libraries</i></strong> </h6>
+- <h6 id="3.1.2"> <strong><i>Install prerequisite libraries</i></strong> </h6>
 
 The code imports the necessary libraries and checks if a GPU is available for TensorFlow to use.
 
@@ -80,27 +80,27 @@ The code imports the necessary libraries and checks if a GPU is available for Te
 #!pip3 install tensorflow==2.0.0           # if you use TensorFlow w/out GPU
 !pip3 install tensorflow-gpu==2.0.0       # if you use TensorFlow w/ GPU
 ```
-<h6 id="3.1.3"> <strong><i>Import Packages to Use</i></strong> </h6>
+- <h6 id="3.1.3"> <strong><i>Import Packages to Use</i></strong> </h6>
 
-- `pandas`: A powerful data manipulation library in Python. It is used for loading and manipulating data in this code.
+    - `pandas`: A powerful data manipulation library in Python. It is used for loading and manipulating data in this code.
 
-- `pickle`: Used for serializing and de-serializing Python object structures.
+    - `pickle`: Used for serializing and de-serializing Python object structures.
 
-- `wordninja`: A package that uses a language model to split concatenated words, which is useful for splitting URLs into individual words.
+    - `wordninja`: A package that uses a language model to split concatenated words, which is useful for splitting URLs into individual words.
 
-- `tensorflow`: A machine learning framework used to build the neural network model for classification. It's also used to create dataset pipelines and check for available GPUs.
+    - `tensorflow`: A machine learning framework used to build the neural network model for classification. It's also used to create dataset pipelines and check for available GPUs.
 
-- `tensorflow.keras.preprocessing.text.Tokenizer`: A class for vectorizing texts, or/and turning texts into sequences.
+    - `tensorflow.keras.preprocessing.text.Tokenizer`: A class for vectorizing texts, or/and turning texts into sequences.
 
-- `tensorflow.keras.preprocessing.sequence.pad_sequences`: A function used to pad sequences to the same length.
+    - `tensorflow.keras.preprocessing.sequence.pad_sequences`: A function used to pad sequences to the same length.
 
-- `matplotlib.pyplot`: A plotting library used for data visualization. Here, it's used to visualize model training results.
+    - `matplotlib.pyplot`: A plotting library used for data visualization. Here, it's used to visualize model training results.
 
-- `lime.lime_text.LimeTextExplainer`: A module from LIME (Local Interpretable Model-agnostic Explanations) package. LIME is a way to explain predictions of any classifier in an interpretable and faithful manner.
+    - `lime.lime_text.LimeTextExplainer`: A module from LIME (Local Interpretable Model-agnostic Explanations) package. LIME is a way to explain predictions of any classifier in an interpretable and faithful manner.
 
-- `sklearn.preprocessing.OneHotEncoder`: A class from scikit-learn library to perform one-hot encoding on categorical variables, used for transforming the class labels.
+    - `sklearn.preprocessing.OneHotEncoder`: A class from scikit-learn library to perform one-hot encoding on categorical variables, used for transforming the class labels.
 
-- `sklearn.metrics.classification_report`: A function from scikit-learn library that builds a text report showing the main classification metrics.
+    - `sklearn.metrics.classification_report`: A function from scikit-learn library that builds a text report showing the main classification metrics.
 
 ```python
 """ Import Packages to Use """
@@ -139,7 +139,7 @@ from utils import preprocess_data
 from utils import predict_url
 ```
 
-<h6 id="3.1.4"> <strong><i>Global Variables</i></strong> </h6>
+- <h6 id="3.1.4"> <strong><i>Global Variables</i></strong> </h6>
 
 Sets various global variables including those related to data size, text processing, and model parameters like vocabulary size, embedding dimension, learning rate, etc.
 
@@ -176,11 +176,11 @@ LR = 1e-3
 N_EPOCH = 100
 ```
 
-- <h4 id="3.2"> <strong><i>Data Processing</i></strong> </h4>
+<h4 id="3.2"> <strong><i>Data Processing</i></strong> </h4>
 
 The data is loaded from a CSV file containing URLs and their corresponding categories. For this demo, the categories have been limited to 'left', 'central', and 'right'.
 
-<h6 id="3.2.1"> <strong><i>Load Data</i></strong> </h6>
+- <h6 id="3.2.1"> <strong><i>Load Data</i></strong> </h6>
 
 ```python
 """ Load Data """
@@ -197,7 +197,7 @@ print("Example Data:")
 print(data_df.head())
 ```
 
-<h6 id="3.2.2"> <strong><i>Split Data</i></strong> </h6>
+- <h6 id="3.2.2"> <strong><i>Split Data</i></strong> </h6>
 
 The data is then shuffled and split into training and test sets. The division ratio is 80% for training and 20% for testing, as set by the variable TRAIN_SIZE.
 
@@ -222,7 +222,7 @@ print("Training set label distriubtion: ", np.unique(y_train, return_counts=True
 print("Test set label distriubtion: ", np.unique(y_test, return_counts=True))
 ```
 
-<h6 id="3.2.3"> <strong><i>Preprocess Data</i></strong> </h6>
+- <h6 id="3.2.3"> <strong><i>Preprocess Data</i></strong> </h6>
 
 Before training, the URLs (which are text) need to be converted into a format that can be understood by the model. This is done by word tokenization, using the preprocess_data function from the utils.py script. Word tokenization is the process of splitting a large paragraph into words. For example, "infococoonbreaker" -> ["info", "cocoon", "breaker"].
 
@@ -268,7 +268,7 @@ print("Label: ", y_test[0])
 print("================================")
 ```
 
-<h6 id="3.2.4"> <strong><i>TensorFlow Dataset Pipeline</i></strong> </h6>
+- <h6 id="3.2.4"> <strong><i>TensorFlow Dataset Pipeline</i></strong> </h6>
 
 The preprocessed data is then fed into a TensorFlow dataset pipeline for training the model in batches. The size of each batch is 40,000.
 
@@ -287,11 +287,11 @@ test_ds = tf.data.Dataset.from_tensor_slices((X_test, y_test))
 test_ds = test_ds.batch(batch_size=BATCH_SIZE)
 ```
 
-- <h4 id="3.3"> <strong><i>Modeling</i></strong> </h4>
+<h4 id="3.3"> <strong><i>Modeling</i></strong> </h4>
 
 The model is a sequential model built using Keras, a high-level API to build and train models in TensorFlow. It consists of an embedding layer, a GlobalAveragePooling1D layer, a dense layer with 'relu' activation function, and a final dense layer with 'softmax' activation function.
 
-<h6 id="3.3.1"> <strong><i>Model Construction</i></strong> </h6>
+- <h6 id="3.3.1"> <strong><i>Model Construction</i></strong> </h6>
 
 ```python
 # Construct a neural network
@@ -311,7 +311,7 @@ model.compile(loss='binary_crossentropy',
 print(model.summary())
 ```
 
-<h6 id="3.3.2"> <strong><i>Model Training</i></strong> </h6>
+- <h6 id="3.3.2"> <strong><i>Model Training</i></strong> </h6>
 
 The model is then trained using the Adam optimizer with a learning rate of 1e-3, binary cross-entropy as the loss function, and accuracy as the metric to measure model performance.
 
@@ -322,13 +322,13 @@ history = model.fit(train_ds, epochs=N_EPOCH,
                     validation_data=test_ds, verbose=1)
 ```
 
-- <h4 id="3.4"> <strong><i>Result</i></strong> </h4>
+<h4 id="3.4"> <strong><i>Result</i></strong> </h4>
 
 The model is trained for 100 epochs. At each epoch, the model's performance (loss and accuracy) on the training data and the test data is recorded and later visualized using Matplotlib.
 
 After training, the model's performance is evaluated by precision and recall, using the Scikit-learn library's classification_report function.
 
-<h6 id="3.4.1"> <strong><i>Loss Rate and Accuracy</i></strong> </h6>
+- <h6 id="3.4.1"> <strong><i>Loss Rate and Accuracy</i></strong> </h6>
 
 ```python
 """ Visualize Training Results """
@@ -372,7 +372,7 @@ plt.show()
 
 <div align=center><img src="{{ site.url }}/assets/url_lossacc.png" height="60%" width="60%" style="margin: 5%" style="margin: 5%"></div>
 
-<h6 id="3.4.2"> <strong><i>Precision and Recall</i></strong> </h6>
+- <h6 id="3.4.2"> <strong><i>Precision and Recall</i></strong> </h6>
 
 ```python
 """ Precision & Recall """
